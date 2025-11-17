@@ -1,6 +1,6 @@
 FROM php:8.2-fpm
 
-# ដំឡើង dependencies របស់ប្រព័ន្ធ និង libraries ដែលចាំបាច់ រួមទាំងសម្រាប់ gd និង zip
+# Step 1: ដំឡើង Dependencies របស់ប្រព័ន្ធ និង Libraries ទាំងអស់ រួមទាំង zlib1g-dev
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -10,11 +10,12 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     libpng-dev \
     libjpeg-dev \
+    zlib1g-dev \
     zip \
     unzip \
     --no-install-recommends
 
-# ដំឡើង PHP Extensions រួមទាំង pdo_pgsql និងសម្អាតឃ្លាំងសម្ងាត់ (Cache)
+# Step 2: ដំឡើង PHP Extensions រួមទាំង pdo_pgsql និងសម្អាត Cache
 RUN docker-php-ext-install -j$(nproc) \
     pdo_pgsql \
     mbstring \
